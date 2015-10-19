@@ -393,7 +393,7 @@ abstract class AbstractGenerator
 
 	protected function updateHistory(Repository $repository, Repository $docsRepository, GitSource $source)
 	{
-		if (array_key_exists('promoted', $this->settings) && $this->settings['promoted'] === false) {
+		if (!array_key_exists('promoted', $this->settings) || $this->settings['promoted'] === false) {
 			return;
 		}
 
