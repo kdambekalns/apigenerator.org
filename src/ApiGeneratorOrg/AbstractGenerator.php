@@ -130,7 +130,7 @@ abstract class AbstractGenerator
 		else {
 			$this->logger->debug(sprintf('Checkout source %s', $url));
 
-			$process = ProcessBuilder::create(array('git', 'clone', '-b', $repository->getCommitBranch(), $url, $repository->getSourcesPath()))
+			$process = ProcessBuilder::create(array('git', 'clone', '--depth', 1, '-b', $repository->getCommitBranch(), $url, $repository->getSourcesPath()))
 				->getProcess();
 			$this->logger->debug('exec ' . $process->getCommandLine());
 			$process->run();
