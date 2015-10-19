@@ -26,7 +26,7 @@ skip-doc-path: test/*
 # skipped doc prefix, see apigen --skip-doc-prefix <value>
 skip-doc-prefix: Test*
 # character set of source files, see apigen --charset <list>
-charset: iso-8859-1
+charset: utf-8
 # main project prefix, see apigen --main <value>
 main: GenApiDoc
 # generated documentation title, see apigen --title <value>
