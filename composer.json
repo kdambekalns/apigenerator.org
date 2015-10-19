@@ -21,12 +21,12 @@
 	"require": {
 		"php": ">=5.3",
 		"monolog/monolog": "~1",
-		"symfony/yaml": "2.3.*",
-		"symfony/process": "2.3.*",
+		"symfony/yaml": "2.7.*",
+		"symfony/process": "2.7.*",
 		"symfony/filesystem": "2.3.*",
-		"symfony/console": "2.3.*",
-		"guzzle/guzzle": "~3",
-		"apigen/apigen": "~2",
+		"symfony/console": "2.7.*",
+		"guzzlehttp/guzzle": "~6",
+		"apigen/apigen": "~4",
 		"phpdocumentor/phpdocumentor": "~2"
 	},
 	"autoload": {

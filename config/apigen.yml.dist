@@ -37,18 +37,12 @@ title: my api documentation
 base-url: http://example.com/
 # google cse id, see apigen --google-cse-id <value>
 google-cse-id: 1234567890
-# google cse label, see apigen --google-cse-label <value>
-google-cse-label: My doc search
 # google analytics tracking code, see apigen --google-analytics <value>
 google-analytics: GA-1234567890
 # template config file inside your repository, apigen --template-config <file>
 template-config: /path/to/my/template-config.cfg
-# allowerd html tags, see apigen --allowed-html <list>
-allowed-html: table,tr,td
 # element grouping method, see apigen --groups <value>
 groups: none
-# list of elements that will appear in the search input autocomplete, see apigen --autocomplete <list>
-autocomplete: classconstants
 # access levels of generated elements, see apigen --access-levels <list>
 access-levels: public,protected,private
 # generate documentation for internal elements, see apigen --internal <yes|no>
@@ -62,10 +56,6 @@ deprecated: true
 # generate list of tasks, see apigen --todo <yes|no>
 todo: true
 # generate highlighted source code, see apigen --source-code <yes|no>
-source-code: false
+no-source-code: true
 # add documentation download link, see apigen --download <yes|no>
 download: true
-# save checkstyle report for poorly documented elements inside gh-pages repository, see apigen --report <file>
-report: /path/to/checkstyle.report
-# delete files generated in the previous run, see apigen --wipeout <yes|no>
-wipeout: false

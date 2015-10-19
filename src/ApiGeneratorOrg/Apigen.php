@@ -37,35 +37,32 @@ class Apigen extends AbstractGenerator
 	{
 		$this->logger->debug('Generate docs');
 
-		$args = array(dirname(dirname(__DIR__)) . '/vendor/bin/apigen.php');
+		$args = array(dirname(dirname(__DIR__)) . '/vendor/bin/apigen');
+		$args[] = 'generate';
 		foreach (
 			array(
 				'config'           => static::PARAM_SOURCE_FILE,
+				'template-config'  => static::PARAM_SOURCE_FILE,
 				'extensions'       => static::PARAM_STRING,
 				'exclude'          => static::PARAM_STRING,
 				'skip-doc-path'    => static::PARAM_STRING,
-				'skip-doc-prefix'  => static::PARAM_STRING,
-				'charset'          => static::PARAM_STRING,
 				'main'             => static::PARAM_STRING,
 				'title'            => static::PARAM_STRING,
 				'base-url'         => static::PARAM_STRING,
 				'google-cse-id'    => static::PARAM_STRING,
-				'google-cse-label' => static::PARAM_STRING,
 				'google-analytics' => static::PARAM_STRING,
-				'template-config'  => static::PARAM_SOURCE_FILE,
-				'allowed-html'     => static::PARAM_STRING,
+				'template-theme'   => static::PARAM_STRING,
 				'groups'           => static::PARAM_STRING,
-				'autocomplete'     => static::PARAM_STRING,
+				'charset'          => static::PARAM_STRING,
 				'access-levels'    => static::PARAM_STRING,
+				'annotation-groups'=> static::PARAM_STRING,
 				'internal'         => static::PARAM_BOOL,
 				'php'              => static::PARAM_BOOL,
 				'tree'             => static::PARAM_BOOL,
 				'deprecated'       => static::PARAM_BOOL,
+				'no-source-code'   => static::PARAM_BOOL,
 				'todo'             => static::PARAM_BOOL,
-				'source-code'      => static::PARAM_BOOL,
 				'download'         => static::PARAM_BOOL,
-				'report'           => static::PARAM_DOCS_FILE,
-				'wipeout'          => static::PARAM_BOOL,
 			) as $parameter => $type
 		) {
 			if (array_key_exists($parameter, $this->settings)) {
@@ -81,8 +78,10 @@ class Apigen extends AbstractGenerator
 						// do nothing
 						break;
 					case static::PARAM_BOOL:
-						$value = $value ? 'yes' : 'no';
-						break;
+						if ($value) {
+							$args[] = '--' . $parameter;
+						}
+						continue 2;
 					default:
 						$this->logger->warning(sprintf('Parameter %s has an illegal type %s', $parameter, $type));
 						// skip

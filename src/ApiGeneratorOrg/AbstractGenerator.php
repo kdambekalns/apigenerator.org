@@ -148,7 +148,7 @@ abstract class AbstractGenerator
 		$filename = $className . '.yml';
 
 		if (file_exists(dirname(dirname(__DIR__)) . '/config/' . $filename)) {
-			$this->defaultSettings = Yaml::parse(dirname(dirname(__DIR__)) . '/config/' . $filename);
+			$this->defaultSettings = Yaml::parse(file_get_contents(dirname(dirname(__DIR__)) . '/config/' . $filename));
 		}
 		else {
 			$this->defaultSettings = array();
@@ -167,7 +167,7 @@ abstract class AbstractGenerator
 			throw new \RuntimeException($filename . ' is missing, skip');
 		}
 
-		$this->settings = Yaml::parse($repository->getSourcesPath() . '/' . $filename);
+		$this->settings = Yaml::parse(file_get_contents($repository->getSourcesPath() . '/' . $filename));
 
 		if ($this->settings === null) {
 			$this->settings = array();
