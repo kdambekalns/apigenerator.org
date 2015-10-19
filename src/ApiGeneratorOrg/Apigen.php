@@ -92,6 +92,7 @@ class Apigen extends AbstractGenerator
 		$args[] = $docsRepository->getDocsPath() . (array_key_exists('docs-path', $this->settings) ? '/' . ltrim($this->settings['docs-path'], '/') : '');
 
 		$process = ProcessBuilder::create($args)->getProcess();
+		$process->setTimeout(null);
 		$this->logger->debug('exec ' . $process->getCommandLine());
 		$process->run();
 		if (!$process->isSuccessful()) {
