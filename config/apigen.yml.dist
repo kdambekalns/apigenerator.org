@@ -3,7 +3,7 @@
 promoted: false
 # by default only changes on the github master branch trigger apigen
 # here you can specify another branch to listen on
-src-branch: stable
+branch: stable
 # path inside of sources branch, see apigen --source <path>
 # default: /
 src-path: /src
