@@ -109,7 +109,17 @@ abstract class AbstractGenerator
 				throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
 			}
 
-			$process = ProcessBuilder::create(array('git', 'fetch', 'origin'))
+			$refsToFetch = sprintf('+refs/heads/%s:refs/remotes/origin/%s', $repository->getCommitBranch(), $repository->getCommitBranch());
+			$process = ProcessBuilder::create(array('git', 'config', 'remote.origin.fetch', $refsToFetch))
+				->setWorkingDirectory($repository->getSourcesPath())
+				->getProcess();
+			$this->logger->debug('exec ' . $process->getCommandLine());
+			$process->run();
+			if (!$process->isSuccessful()) {
+				throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+			}
+
+			$process = ProcessBuilder::create(array('git', 'fetch', '--depth', 1, 'origin'))
 				->setWorkingDirectory($repository->getSourcesPath())
 				->getProcess();
 			$this->logger->debug('exec ' . $process->getCommandLine());
