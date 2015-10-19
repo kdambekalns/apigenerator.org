@@ -207,12 +207,12 @@ abstract class AbstractGenerator
 		}
 
 		# build default base url
-		if (!array_key_exists('base-url', $this->defaultSettings)) {
+		if (!array_key_exists('base-url', $this->settings)) {
 			$this->settings['base-url'] = $source->getPagesUrl($docsRepository);
 		}
 
 		# set default title
-		if (!array_key_exists('title', $this->defaultSettings)) {
+		if (!array_key_exists('title', $this->settings)) {
 			$this->settings['title'] = $repository->getRepository();
 		}
 
