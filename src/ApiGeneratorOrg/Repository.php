@@ -55,6 +55,7 @@ class Repository
 
 	/**
 	 * @param string $ownerName
+	 * @return $this
 	 */
 	public function setOwnerName($ownerName)
 	{
@@ -72,6 +73,7 @@ class Repository
 
 	/**
 	 * @param string $repositoryName
+	 * @return $this
 	 */
 	public function setRepositoryName($repositoryName)
 	{
@@ -89,6 +91,7 @@ class Repository
 
 	/**
 	 * @param string $masterBranch
+	 * @return $this
 	 */
 	public function setMasterBranch($masterBranch)
 	{
@@ -106,6 +109,7 @@ class Repository
 
 	/**
 	 * @param string $commitBranch
+	 * @return $this
 	 */
 	public function setCommitBranch($commitBranch)
 	{
@@ -123,6 +127,7 @@ class Repository
 
 	/**
 	 * @param string $commitMessage
+	 * @return $this
 	 */
 	public function setCommitMessage($commitMessage)
 	{

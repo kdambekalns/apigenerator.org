@@ -67,7 +67,7 @@ class Hook
 	 * @param $errfile
 	 * @param $errline
 	 *
-	 * @throws ErrorException
+	 * @throws \ErrorException
 	 */
 	public function handleError($errno, $errstr, $errfile, $errline)
 	{
@@ -75,7 +75,7 @@ class Hook
 	}
 
 	/**
-	 * @param Exception $exception
+	 * @param \Exception $exception
 	 */
 	public function handleException($exception)
 	{
