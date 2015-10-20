@@ -18,7 +18,7 @@ docs-path: /docs
 # path to apigen config file inside your repository, see apigen --config <file>
 config: /apigen.config
 # allowed file extensions, see apigen --extensions <list>
-extensions: php5
+extensions: php
 # file excludes, see apigen --exclude <mask>
 exclude: *no-doc*
 # skipped doc path, see apigen --skip-doc-path <mask>
@@ -45,17 +45,15 @@ template-config: /path/to/my/template-config.cfg
 groups: none
 # access levels of generated elements, see apigen --access-levels <list>
 access-levels: public,protected,private
-# generate documentation for internal elements, see apigen --internal <yes|no>
+# generate documentation for internal elements, see apigen --internal
 internal: true
-# generate documentation for php classes, see apigen --php <yes|no>
+# generate documentation for php classes, see apigen --php
 php: false
-# generate tree view, see apigen --tree <yes|no>
+# generate tree view, see apigen --tree
 tree: false
-# generate documentation for deprecated elements, see apigen --deprecated <yes|no>
-deprecated: true
-# generate list of tasks, see apigen --todo <yes|no>
-todo: true
-# generate highlighted source code, see apigen --source-code <yes|no>
+# generate page with elements with specific annotation, see apigen --annotation-groups: <list>
+annotation-groups: 'todo,deprecated'
+# generate highlighted source code, see apigen --no-source-code
 no-source-code: true
-# add documentation download link, see apigen --download <yes|no>
+# add documentation download link, see apigen --download
 download: true

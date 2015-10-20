@@ -1,5 +1,4 @@
 access-levels: public,protected,private
 internal: yes
 php: false
-deprecated: true
-todo: true
+annotation-groups: 'todo,deprecated'
