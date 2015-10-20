@@ -16,9 +16,17 @@
 		"issues": "https://github.com/apigenerator/apigenerator.org/issues",
 		"source": "https://github.com/apigenerator/apigenerator.org"
 	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/kdambekalns/PHP-Token-Reflection.git"
+		}
+	],
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
+		"andrewsville/php-token-reflection": "dev-scalar-expression-constants as 1.4.x-dev",
+
 		"php": ">=5.3",
 		"monolog/monolog": "~1",
 		"symfony/yaml": "2.7.*",
