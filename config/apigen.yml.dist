@@ -1,6 +1,3 @@
-# by default we create a "history" record to promote our service,
-# if you don't want that your project is listed, set this to false
-promoted: false
 # by default only changes on the github master branch trigger apigen
 # here you can specify another branch to listen on
 branch: stable
