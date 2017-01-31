@@ -16,23 +16,17 @@
 		"issues": "https://github.com/apigenerator/apigenerator.org/issues",
 		"source": "https://github.com/apigenerator/apigenerator.org"
 	},
-	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/kdambekalns/PHP-Token-Reflection.git"
-		}
-	],
 	"require": {
-		"andrewsville/php-token-reflection": "dev-scalar-expression-constants as 1.4.x-dev",
-
 		"monolog/monolog": "~1",
 		"symfony/yaml": "2.7.*",
 		"symfony/process": "2.7.*",
 		"symfony/filesystem": "2.3.*",
 		"symfony/console": "2.7.*",
-		"guzzlehttp/guzzle": "~6",
-		"apigen/apigen": "~4",
-		"phpdocumentor/phpdocumentor": "~2"
+		"guzzlehttp/guzzle": "~6"
+	},
+	"suggest": {
+		"apigen/apigen": "To generate documentation using apigen",
+		"phpdocumentor/phpdocumentor": "To generate documentation using phpdoc"
 	},
 	"autoload": {
 		"psr-4": {

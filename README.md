@@ -13,6 +13,18 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install --no-dev
 ```
 
+Now decide on an actual generator to use:
+
+```bash
+php composer.phar require apigen/apigen
+```
+
+or
+
+```bash
+php composer.phar require phpdocumentor/phpdocumentor
+```
+
 Setup your web server to point to `/path/to/apigenerator.org/web`.
 
 Setup ssh key
