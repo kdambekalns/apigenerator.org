@@ -35,7 +35,7 @@ class Phpdoc extends AbstractGenerator
     {
         $this->logger->debug('Generate docs');
 
-        $args = [dirname(dirname(__DIR__)) . '/vendor/bin/phpdoc.php'];
+        $args = [dirname(__DIR__) . '/vendor/bin/phpdoc.php'];
         foreach (
             [
                 'config' => static::PARAM_SOURCE_FILE,

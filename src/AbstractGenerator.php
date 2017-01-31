@@ -180,8 +180,9 @@ abstract class AbstractGenerator
         $className = strtolower($class->getShortName());
         $filename = $className . '.yml';
 
-        if (file_exists(dirname(dirname(__DIR__)) . '/config/' . $filename)) {
-            $this->defaultSettings = Yaml::parse(file_get_contents(dirname(dirname(__DIR__)) . '/config/' . $filename));
+        $pathAndFilename = dirname(__DIR__) . '/config/' . $filename;
+        if (file_exists($pathAndFilename)) {
+            $this->defaultSettings = Yaml::parse(file_get_contents($pathAndFilename));
         } else {
             $this->defaultSettings = [];
         }

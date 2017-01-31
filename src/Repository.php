@@ -166,7 +166,7 @@ class Repository
     {
         return sprintf(
             '%s/sources/%s/%s/',
-            dirname(dirname(__DIR__)),
+            dirname(__DIR__),
             $this->ownerName,
             $this->repositoryName
         );
@@ -179,7 +179,7 @@ class Repository
     {
         return sprintf(
             '%s/docs/%s/%s/',
-            dirname(dirname(__DIR__)),
+            dirname(__DIR__),
             $this->ownerName,
             $this->repositoryName
         );

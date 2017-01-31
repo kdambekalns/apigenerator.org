@@ -30,7 +30,7 @@ class Apigen extends AbstractGenerator
     {
         $this->logger->debug('Generate docs');
 
-        $args = [dirname(dirname(__DIR__)) . '/vendor/bin/apigen'];
+        $args = [dirname(__DIR__) . '/vendor/bin/apigen'];
         $args[] = 'generate';
         foreach (
             [

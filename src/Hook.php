@@ -56,7 +56,7 @@ class Hook
         set_error_handler([$this, 'handleError']);
         set_exception_handler([$this, 'handleException']);
 
-        $this->handler = new RotatingFileHandler(dirname(dirname(__DIR__)) . '/log/hook.log', 7);
+        $this->handler = new RotatingFileHandler(dirname(__DIR__) . '/log/hook.log', 7);
         $this->logger = new Logger('*/*', [$this->handler]);
 
         $this->fs = new Filesystem();
