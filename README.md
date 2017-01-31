@@ -1,15 +1,16 @@
-# **[CLOSED] apigenerator.org has been discontinued**
+Even though apigenerator.org has been discontinued this fork is still in use
+by the Neos project and maintained by me.
 
 Install
 -------
 
-Clone the apigenerator project on your server and install dependencies.
+Clone the project on your server and install dependencies.
 
 ```bash
-git clone git@github.com:apigenerator/apigenerator.org.git /path/to/apigenerator.org
+git clone git@github.com:kdambekalns/apigenerator.org.git /path/to/apigenerator.org
 cd /path/to/apigenerator.org
 curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+php composer.phar install --no-dev
 ```
 
 Setup your web server to point to `/path/to/apigenerator.org/web`.
