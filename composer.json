@@ -20,9 +20,7 @@
 		"monolog/monolog": "~1",
 		"symfony/yaml": "2.7.*",
 		"symfony/process": "2.7.*",
-		"symfony/filesystem": "2.3.*",
-		"symfony/console": "2.7.*",
-		"guzzlehttp/guzzle": "~6"
+		"symfony/filesystem": "2.3.*"
 	},
 	"suggest": {
 		"apigen/apigen": "To generate documentation using apigen",
