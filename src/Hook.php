@@ -111,7 +111,7 @@ class Hook
      */
     public function run(Repository $repository, GitSource $source)
     {
-        $this->logger = new Logger($repository->getRepository(), [$this->handler]);
+        $this->logger = $this->logger->withName($repository->getRepository());
 
         $this->logger->info(
             sprintf(

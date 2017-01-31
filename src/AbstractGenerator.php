@@ -52,7 +52,7 @@ abstract class AbstractGenerator
      */
     function __construct()
     {
-        $this->handler = new RotatingFileHandler(dirname(dirname(__DIR__)) . '/log/hook.log', 7);
+        $this->handler = new RotatingFileHandler(dirname(__DIR__) . '/log/hook.log', 7);
         $this->logger = new Logger('*/*', [$this->handler]);
 
         $this->fs = new Filesystem();
@@ -65,7 +65,7 @@ abstract class AbstractGenerator
      */
     public function run(Repository $repository, GitSource $source)
     {
-        $this->logger = new Logger($repository->getRepository(), [$this->handler]);
+        $this->logger = $this->logger->withName($repository->getRepository());
 
         try {
             $docsRepository = null;
