@@ -3,6 +3,11 @@
 	"description": "Generate apidoc as service hook and push back as github pages into repository.",
 	"keywords": ["github", "apidoc", "apigen", "phpdoc", "phpdocumentor"],
 	"license": "LGPL-3.0+",
+	"config": {
+		"platform": {
+			"php": "7.1"
+		}
+	},
 	"authors": [
 		{
 			"name": "Tristan Lins",
@@ -18,9 +23,10 @@
 	},
 	"require": {
 		"monolog/monolog": "~1",
-		"symfony/yaml": "2.7.*",
-		"symfony/process": "2.7.*",
-		"symfony/filesystem": "2.3.*"
+		"symfony/yaml": "~3.2",
+		"symfony/process": "~3.2",
+		"symfony/filesystem": "~3.2",
+		"apigen/apigen": "dev-master#44a613cf75844fe28b0a9a03347b0310df5c06c4"
 	},
 	"suggest": {
 		"apigen/apigen": "To generate documentation using apigen",
