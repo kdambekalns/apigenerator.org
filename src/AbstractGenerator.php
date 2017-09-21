@@ -320,7 +320,7 @@ abstract class AbstractGenerator
             }
         }
 
-        $process = ProcessBuilder::create(['git', 'fetch', 'origin'])
+        $process = ProcessBuilder::create(['git', 'fetch', '--depth', 1, 'origin'])
             ->setWorkingDirectory($docsRepository->getDocsPath())
             ->getProcess();
         $this->logger->debug('exec ' . $process->getCommandLine());
