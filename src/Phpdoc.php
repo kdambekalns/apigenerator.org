@@ -13,7 +13,7 @@ namespace ApiGeneratorOrg;
  * @filesource
  */
 
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 class Phpdoc extends AbstractGenerator
 {
@@ -101,11 +101,11 @@ class Phpdoc extends AbstractGenerator
         $args[] = '--force';
         $args[] = '--no-interaction';
 
-        $process = ProcessBuilder::create($args)->getProcess();
+        $process = new Process($args);
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
     }
 }

@@ -14,7 +14,7 @@
 
 namespace ApiGeneratorOrg;
 
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 class Apigen extends AbstractGenerator
 {
@@ -105,12 +105,12 @@ class Apigen extends AbstractGenerator
         $args[] = '--destination';
         $args[] = $docsRepository->getDocsPath() . (array_key_exists('docs-path', $this->settings) ? '/' . ltrim($this->settings['docs-path'], '/') : '');
 
-        $process = ProcessBuilder::create($args)->getProcess();
+        $process = new Process($args);
         $process->setTimeout(null);
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
     }
 }

@@ -17,7 +17,7 @@ use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class AbstractGenerator
@@ -120,51 +120,42 @@ abstract class AbstractGenerator
         if ($this->fs->exists($repository->getSourcesPath() . '.git')) {
             $this->logger->debug(sprintf('Update sources %s', $repository->getSourcesPath()));
 
-            $process = ProcessBuilder::create(['git', 'remote', 'set-url', 'origin', $url])
-                ->setWorkingDirectory($repository->getSourcesPath())
-                ->getProcess();
+            $process = new Process(['git', 'remote', 'set-url', 'origin', $url], $repository->getSourcesPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
 
             $refsToFetch = sprintf('+refs/heads/%s:refs/remotes/origin/%s', $repository->getCommitBranch(), $repository->getCommitBranch());
-            $process = ProcessBuilder::create(['git', 'config', 'remote.origin.fetch', $refsToFetch])
-                ->setWorkingDirectory($repository->getSourcesPath())
-                ->getProcess();
+            $process = new Process(['git', 'config', 'remote.origin.fetch', $refsToFetch], $repository->getSourcesPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
 
-            $process = ProcessBuilder::create(['git', 'fetch', '--depth', 1, 'origin'])
-                ->setWorkingDirectory($repository->getSourcesPath())
-                ->getProcess();
+            $process = new Process(['git', 'fetch', '--depth', 1, 'origin'], $repository->getSourcesPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
 
-            $process = ProcessBuilder::create(['git', 'reset', '--hard', 'origin/' . $repository->getCommitBranch()])
-                ->setWorkingDirectory($repository->getSourcesPath())
-                ->getProcess();
+            $process = new Process(['git', 'reset', '--hard', 'origin/' . $repository->getCommitBranch()], $repository->getSourcesPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         } else {
             $this->logger->debug(sprintf('Checkout source %s', $url));
 
-            $process = ProcessBuilder::create(['git', 'clone', '--depth', 1, '-b', $repository->getCommitBranch(), $url, $repository->getSourcesPath()])
-                ->getProcess();
+            $process = new Process(['git', 'clone', '--depth', 1, '-b', $repository->getCommitBranch(), $url, $repository->getSourcesPath()]);
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         }
     }
@@ -293,49 +284,40 @@ abstract class AbstractGenerator
         $url = $source->getRepositoryUrl($docsRepository);
 
         if ($this->fs->exists($docsRepository->getDocsPath() . '.git')) {
-            $process = ProcessBuilder::create(['git', 'remote', 'set-url', 'origin', $url])
-                ->setWorkingDirectory($docsRepository->getDocsPath())
-                ->getProcess();
+            $process = new Process(['git', 'remote', 'set-url', 'origin', $url], $docsRepository->getDocsPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         } else {
-            $process = ProcessBuilder::create(['git', 'init', $docsRepository->getDocsPath()])
-                ->getProcess();
+            $process = new Process(['git', 'init', $docsRepository->getDocsPath()]);
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
 
-            $process = ProcessBuilder::create(['git', 'remote', 'add', 'origin', $url])
-                ->setWorkingDirectory($docsRepository->getDocsPath())
-                ->getProcess();
+            $process = new Process(['git', 'remote', 'add', 'origin', $url], $docsRepository->getDocsPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         }
 
-        $process = ProcessBuilder::create(['git', 'fetch', '--depth', 1, 'origin'])
-            ->setWorkingDirectory($docsRepository->getDocsPath())
-            ->getProcess();
+        $process = new Process(['git', 'fetch', '--depth', 1, 'origin'], $docsRepository->getDocsPath());
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
 
-        $process = ProcessBuilder::create(['git', 'branch', '-a'])
-            ->setWorkingDirectory($docsRepository->getDocsPath())
-            ->getProcess();
+        $process = new Process(['git', 'branch', '-a'], $docsRepository->getDocsPath());
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
         $branches = explode("\n", $process->getOutput());
         $branches = array_map(
@@ -346,48 +328,40 @@ abstract class AbstractGenerator
         );
         $branches = array_map('trim', $branches);
 
-        if (in_array('remotes/origin/' . $this->settings['docs-branch'], $branches)) {
+        if (in_array('remotes/origin/' . $this->settings['docs-branch'], $branches, true)) {
             $this->logger->debug(sprintf('Update docs %s', $url));
 
-            $process = ProcessBuilder::create(['git', 'checkout', '-f', '-B', $this->settings['docs-branch']])
-                ->setWorkingDirectory($docsRepository->getDocsPath())
-                ->getProcess();
+            $process = new Process(['git', 'checkout', '-f', '-B', $this->settings['docs-branch']], $docsRepository->getDocsPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
 
-            $process = ProcessBuilder::create(['git', 'reset', '--hard', 'origin/' . $this->settings['docs-branch']])
-                ->setWorkingDirectory($docsRepository->getDocsPath())
-                ->getProcess();
+            $process = new Process(['git', 'reset', '--hard', 'origin/' . $this->settings['docs-branch']], $docsRepository->getDocsPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         } else {
-            if (!in_array($this->settings['docs-branch'], $branches)) {
+            if (!in_array($this->settings['docs-branch'], $branches, true)) {
                 $this->logger->debug(sprintf('Initialise empty docs %s', $url));
 
-                $process = ProcessBuilder::create(['git', 'checkout', '--orphan', $this->settings['docs-branch']])
-                    ->setWorkingDirectory($docsRepository->getDocsPath())
-                    ->getProcess();
+                $process = new Process(['git', 'checkout', '--orphan', $this->settings['docs-branch']], $docsRepository->getDocsPath());
                 $this->logger->debug('exec ' . $process->getCommandLine());
                 $process->run();
                 if (!$process->isSuccessful()) {
-                    throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                    throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
                 }
             } else {
                 $this->logger->debug(sprintf('Reuse local docs branch %s', $url));
 
-                $process = ProcessBuilder::create(['git', 'checkout', '-Bf', $this->settings['docs-branch']])
-                    ->setWorkingDirectory($docsRepository->getDocsPath())
-                    ->getProcess();
+                $process = new Process(['git', 'checkout', '-Bf', $this->settings['docs-branch']], $docsRepository->getDocsPath());
                 $this->logger->debug('exec ' . $process->getCommandLine());
                 $process->run();
                 if (!$process->isSuccessful()) {
-                    throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                    throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
                 }
             }
         }
@@ -403,13 +377,11 @@ abstract class AbstractGenerator
     {
         $this->logger->debug('Push docs');
 
-        $process = ProcessBuilder::create(['git', 'status', '-s'])
-            ->setWorkingDirectory($docsRepository->getDocsPath())
-            ->getProcess();
+        $process = new Process(['git', 'status', '-s'], $docsRepository->getDocsPath());
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
 
         $changes = $process->getOutput();
@@ -422,33 +394,27 @@ abstract class AbstractGenerator
             foreach ($changes as $change) {
                 list($status, $file) = explode(' ', $change, 2);
 
-                $process = ProcessBuilder::create(['git', $status == 'D' ? 'rm' : 'add', $file])
-                    ->setWorkingDirectory($docsRepository->getDocsPath())
-                    ->getProcess();
+                $process = new Process(['git', $status == 'D' ? 'rm' : 'add', $file], $docsRepository->getDocsPath());
                 $this->logger->debug('exec ' . $process->getCommandLine());
                 $process->run();
                 if (!$process->isSuccessful()) {
-                    throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                    throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
                 }
             }
 
-            $process = ProcessBuilder::create(['git', 'commit', '-m', $repository->getCommitMessage()])
-                ->setWorkingDirectory($docsRepository->getDocsPath())
-                ->getProcess();
+            $process = new Process(['git', 'commit', '-m', $repository->getCommitMessage()], $docsRepository->getDocsPath());
             $this->logger->debug('exec ' . $process->getCommandLine());
             $process->run();
             if (!$process->isSuccessful()) {
-                throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+                throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
             }
         }
 
-        $process = ProcessBuilder::create(['git', 'push', 'origin', $this->settings['docs-branch']])
-            ->setWorkingDirectory($docsRepository->getDocsPath())
-            ->getProcess();
+        $process = new Process(['git', 'push', 'origin', $this->settings['docs-branch']], $docsRepository->getDocsPath());
         $this->logger->debug('exec ' . $process->getCommandLine());
         $process->run();
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getCommandLine() . ': ' . $process->getErrorOutput() ?: $process->getOutput());
+            throw new \RuntimeException($process->getCommandLine() . ': ' . ($process->getErrorOutput() ?: $process->getOutput()));
         }
     }
 }
