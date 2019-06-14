@@ -5,7 +5,7 @@
 	"license": "LGPL-3.0+",
 	"config": {
 		"platform": {
-			"php": "7.1"
+			"php": "7.3"
 		}
 	},
 	"authors": [
@@ -26,8 +26,10 @@
 		"symfony/yaml": "~3.2",
 		"symfony/process": "~3.2",
 		"symfony/filesystem": "~3.2",
-		"apigen/apigen": "dev-master#44a613cf75844fe28b0a9a03347b0310df5c06c4"
+		"apigen/apigen": "dev-master"
 	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"suggest": {
 		"apigen/apigen": "To generate documentation using apigen",
 		"phpdocumentor/phpdocumentor": "To generate documentation using phpdoc"
