@@ -93,7 +93,7 @@ class Apigen extends AbstractGenerator
                     default:
                         $this->logger->warning(sprintf('Parameter %s has an illegal type %s', $parameter, $type));
                         // skip
-                        continue;
+                        continue 2;
                 }
 
                 $args[] = '--' . $parameter;
